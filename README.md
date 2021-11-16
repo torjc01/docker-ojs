@@ -39,7 +39,7 @@ you can start an OJS stack (web app + database containers) with a single command
 1. Clone this repository in your machine (if you don't like git, [download](https://github.com/pkp/docker-ojs/archive/master.zip) and unzip it):
 
     ```bash
-    $ https://github.com/pkp/docker-ojs.git
+    $ git clone https://github.com/pkp/docker-ojs.git
     ```
 
 2. Go to the directory of your OJS version of your choice:
