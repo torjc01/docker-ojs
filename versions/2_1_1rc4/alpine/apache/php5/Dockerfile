@@ -4,6 +4,7 @@ LABEL maintainer="Public Knowledge Project <marc.bria@gmail.com>"
 
 WORKDIR /var/www/html
 
+# When using Composer, disable the warning about running commands as root/super user
 ENV COMPOSER_ALLOW_SUPERUSER=1  \
     SERVERNAME="localhost"      \
     HTTPS="on"                  \
@@ -19,9 +20,6 @@ ENV COMPOSER_ALLOW_SUPERUSER=1  \
 
 # PHP_INI_DIR to be symmetrical with official php docker image
 ENV PHP_INI_DIR /etc/php/5.6
-
-# When using Composer, disable the warning about running commands as root/super user
-ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Basic packages
 ENV PACKAGES 		\
