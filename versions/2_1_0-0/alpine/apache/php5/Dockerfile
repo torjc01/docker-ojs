@@ -34,10 +34,7 @@ ENV PACKAGES 		\
 	php5			\
 	php5-cli		\
 	php5-apache2	\
-	runit 			\
-	supervisor
-
-#	php5-fpm 		\
+	runit
 
 # PHP extensions
 ENV PHP_EXTENSIONS	\
@@ -94,7 +91,7 @@ RUN set -xe \
 	# Composer vudu:
 	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer.phar \
 # Create directories
- 	&& mkdir -p /var/www/files /run/apache2  /run/supervisord/ \
+ 	&& mkdir -p /var/www/files /run/apache2  \
 	&& cp config.TEMPLATE.inc.php config.inc.php \
 	&& chown -R apache:apache /var/www/* \
 # Prepare freefont for captcha 
@@ -112,8 +109,10 @@ RUN set -xe \
 
 COPY root/ /
 
-EXPOSE 80 443
+EXPOSE 80 
+EXPOSE 443
 
 VOLUME [ "/var/www/files", "/var/www/html/public" ]
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+RUN chmod +x /usr/local/bin/ojs-start
+CMD ["ojs-start"]
