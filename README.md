@@ -31,12 +31,15 @@ Then wait till the containers are built and click in the 8081 port link to get a
 ## How to use
 
 If you want to run it locally (or in your own server), first you need to install
-docker ([docker-compose](https://docs.docker.com/compose/) is also recommended).
+[docker](https://docs.docker.com/get-docker/) ([even docker-compose](https://docs.docker.com/compose/install/) is also recommended).
 
-For all available versions, we provide a **docker-compose** configuration file so
-you can start an OJS stack (web app + database containers) with a single command.
+You can have it all up and running in less than 10 minutes following this brief howto:
+https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-debian-10
 
-1. Clone this repository in your machine (if you don't like git, [download](https://github.com/pkp/docker-ojs/archive/master.zip) and unzip it):
+After this, notice that for all available versions, we provide a **docker-compose** configuration file so
+you will be able to start a full OJS stack (web app + database containers) in 4 easy steps:
+
+1. Clone this repository in your machine (if youprefer, you can also [download](https://github.com/pkp/docker-ojs/archive/master.zip) and unzip it):
 
     ```bash
     $ git clone https://github.com/pkp/docker-ojs.git
@@ -44,7 +47,7 @@ you can start an OJS stack (web app + database containers) with a single command
 
 2. Go to the directory of your OJS version of your choice:
     ```bash
-    $ cd versions/3_2_0-1/alpine/apache/php73
+    $ cd versions/3_2_0-1/alpine/apache/php
     ```
     | **TIP: Map your config** |
     |:-----------------------------------------------------------------------------------|
@@ -56,7 +59,7 @@ you can start an OJS stack (web app + database containers) with a single command
     $ docker-compose up
     ```
 
-    Docker-compose will pull images from docker Hub and do all the hard work to rise a functional OJS stack.
+    Docker-compose will pull images from dockerHub and do all the hard work for you to rise a full functional OJS stack.
 
 4. Access **http://127.0.0.1:8081** and continue through web installation process.
 
@@ -76,13 +79,17 @@ you can start an OJS stack (web app + database containers) with a single command
     |:---------------------|
     | To go through the OJS installation process automatically, set the environment variable `OJS_CLI_INSTALL=1`, and use the other .env variables to automatize the process. |
 
+That's all. Easy peasy, isn't it?
+
+Ok, let's talk talk about more complex concepts and scenarios.
+
 ## Building local images
 
-Each version folder also includes has a file called `docker-compose-local.yml`.
+The official image will work for 90% of the people but, if you don't want external dependencies or you like to modify our official Dockerfiles to fit your specific needs you will need to build your images in your machine.
 
-This compose won't ask dockerHub for the required images, it expects you build a docker image locally.
+Each version folder also includes an alternative yml file called `docker-compose-local.yml`.
 
-This is useful if you don't want external dependencies or you like to modify our official Dockerfiles to fit your specific needs.
+This compose won't ask dockerHub for the required images, it will build a docker image locally.
 
 To do this...
 
@@ -127,7 +134,7 @@ _**Note:** OJS_CLI_INSTALL and certificate features are under construction._
 ## Special Volumes
 
 Docker content is efimerous by design, but in some situations you would like
-to keep some stuff **persistent** between docker falls (ie: database content,
+to keep some stuff **persistent** between docker restarts (ie: database content,
 upload files, plugin development...)
 
 By default we include an structure of directories in the version folders
@@ -162,7 +169,7 @@ The down sides of those volumes is they can not be "named" and docker will
 store them with an absolute path (that it’s annoying to make stuff portable) 
 but I prefer better control about where data is stored than leave it in docker hands.
 
-This is just an image, so feel free to modify to fit your needs.
+And remember this is just an image, so feel free to modify to fit your needs.
 
 You can add your own volumes. For instance, make sense for a plugin developer
 or a themer to create a volume with his/her work, to keep a persistent copy in
@@ -211,7 +218,7 @@ You can call the scripts outside the container as follows:
 
 ## Upgrading OJS
 
-The update process is easy and straightforward.
+Thanks to docker, the ugrade process is easy and straightforward.
 
 1. **Stop the stack** with the old OJS version (for instance "pkpofficial/ojs:2_4_8-5").
    ```bash
@@ -223,11 +230,11 @@ The update process is easy and straightforward.
 
      with the new one:        ```image: pkpofficial/ojs:3_2_1-4```
 
-3. **Start the container** with the new OJS version. It will pull a new image of your OJS scripts.
+3. **Start the container**. As you changed the version, docker-compose will automatically pull a new image with an updated version of the OJS code that will replace the old one (remember that containers are not persistent).
    ```bash
    $ docker-compose up
    ```
-4. **Run the upgrade script** to upgrade the OJS database and files. Easiest was is connecting to your OJS container with [`docker exec`](https://docs.docker.com/engine/reference/commandline/exec/) and run `ojs-upgrade` with this single line:
+4. **Run the upgrade script** to upgrade the OJS database and files. Easiest was is connecting to your OJS container with [`docker exec`](https://docs.docker.com/engine/reference/commandline/exec/) and run the `ojs-upgrade` built in script with this single line:
    ```bash
    $ docker exec -it ojs_app_journalname /usr/local/bin/ojs-upgrade
    ```
