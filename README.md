@@ -31,7 +31,7 @@ Then wait till the containers are built and click in the 8081 port link to get a
 ## How to use
 
 If you want to run it locally (or in your own server), first you need to install
-[docker](https://docs.docker.com/get-docker/) ([even docker-compose](https://docs.docker.com/compose/install/) is also recommended).
+[docker](https://docs.docker.com/get-docker/) (even [docker-compose](https://docs.docker.com/compose/install/) it's also recommended).
 
 You can have it all up and running in less than 10 minutes following this brief howto:
 https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-debian-10
