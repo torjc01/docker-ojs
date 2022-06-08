@@ -2,11 +2,9 @@
 
 | **IMPORTANT:** |
 |:---------------------------------------------------------|
-| We have temporarily moved to gitLab to test the CI/CD tools so the latest version of this repository is now available here: https://gitlab.com/pkp-org/docker
-
-This is a temporary change as most likely in the near future, we will move back to this same repository and use gitHubActions.
-
-Sorry for the inconvenience. |
+| We have temporarily moved to gitLab to test the CI/CD tools so the latest version of this repository is now available here: https://gitlab.com/pkp-org/docker |
+| This is a temporary change as most likely in the near future, we will move back to this same repository and use gitHubActions. |
+| Sorry for the inconvenience. |
 
 
 **This repository is still beta, so it should be used with care in production settings - please provide feedback early and often about your experience.** <br />We are actively working to release a stable version soon. Keep tuned.
