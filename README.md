@@ -2,8 +2,9 @@
 
 | **IMPORTANT:** |
 |:---------------------------------------------------------|
-| We have temporarily moved to gitLab to test the CI/CD tools so the latest version of this repository is now available here: https://gitlab.com/pkp-org/docker |
+| Due dockerHub recent changes and to test the CI/CD tools, we have temporarily moved to gitLab, so the latest version of this repository is now available here: https://gitlab.com/pkp-org/docker |
 | This is a temporary change as most likely in the near future, we will move back to this same repository and use gitHubActions. |
+| Generated in gitLab or gitHub, we will keep pushing images to dockerHub as long as it is a free service. |
 | Sorry for the inconvenience. |
 
 
