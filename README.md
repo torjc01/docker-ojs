@@ -34,6 +34,20 @@ Then wait till the containers are built and click in the 8081 port link to get a
 
 ## How to use
 
+### TL;DR;
+
+```
+$ git clone https://github.com/pkp/docker-ojs.git
+$ mv .env.TEMPLATE .env
+$ vim .env
+# Change the environment variables to fit your needs (ojs version, ports, container name, url...)
+$ source .env && wget "https://github.com/pkp/ojs/raw/${OJS_VERSION}/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
+$ docker-compose up -d
+
+```
+
+### Extended version
+
 If you want to run it locally (or in your own server), first you need to install
 [docker](https://docs.docker.com/get-docker/) (even [docker-compose](https://docs.docker.com/compose/install/) it's also recommended).
 
@@ -49,21 +63,35 @@ you will be able to start a full OJS stack (web app + database containers) in 4 
     $ git clone https://github.com/pkp/docker-ojs.git
     ```
 
-2. Go to the directory of your OJS version of your choice:
+2. Set your environment variables
+
     ```bash
-    $ cd versions/3_2_0-1/alpine/apache/php
+    $ mv .env.TEMPLATE .env
+    ```
+
+    Edit your .env file to fit your needto fit your needs.
+    You will probably like to chage your OJS_VERSION, ports, and names.
+    For a detailes description of all the environment variables take a look to ["Environment Variables"](#) sectionj.
+
+3. Download the ojs config file related to your version
+
+    ```bash
+    $ source .env && wget "https://github.com/pkp/ojs/raw/${OJS_VERSION}/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
+    ```
+
     ```
     | **TIP: Map your config** |
     |:-----------------------------------------------------------------------------------|
     | In production sites you would like to change the default configuration. <br /> The recommended way is uncommenting the environment variable sections in your docker-compose.yml and set the [environment variables](#environment-variables) properly. |
     | More info at ["Easy way to change config stuff"](#easy-way-to-change-config-stuff) |
 
-3. Run the stack:
+4. Run the stack:
     ```bash
     $ docker-compose up
     ```
 
     Docker-compose will pull images from dockerHub and do all the hard work for you to rise a full functional OJS stack.
+    You can add the "-d" parameter to the call if you like to run it detached.
 
 4. Access **http://127.0.0.1:8081** and continue through web installation process.
 
@@ -72,7 +100,7 @@ you will be able to start a full OJS stack (web app + database containers) in 4 
     - **Database driver**: `mysqli` (or "mysql" if your php is lower than 7.3)
     - **Host**: `db` (which is the name of the container in the internal Docker network)
     - **Username**: `ojs`
-    - **Password**: `ojs`
+    - **Password**: `ojs` (change with the password you set in your environment variables)
     - **Database name**: `ojs`
     - _Uncheck_ "Create new database"
     - _Uncheck_ "Beacon"
