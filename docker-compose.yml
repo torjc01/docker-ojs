@@ -18,9 +18,9 @@ services:
     container_name: "ojs_db_${COMPOSE_PROJECT_NAME:-demo}"
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:-ojsPwd}"
-      MYSQL_DATABASE: "${MYSQL_DATABASE:-ojs}"
-      MYSQL_USER: "${MYSQL_USER:-ojs}"
-      MYSQL_PASSWORD: "${MYSQL_PASSWORD:-ojsPwd}"
+      MYSQL_DATABASE: "${OJS_DB_NAME:-ojs}"
+      MYSQL_USER: "${OJS_DB_USER:-ojs}"
+      MYSQL_PASSWORD: "${OJS_DB_PASSWORD:-ojsPwd}"
     volumes:
       - ./volumes/db:/var/lib/mysql
       - ./volumes/dump:/docker-entrypoint-initdb.d

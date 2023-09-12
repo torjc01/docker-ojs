@@ -1,8 +1,10 @@
 # OJS (Open Journal Systems) - PKP - Container/Docker
 
+
+
 | **IMPORTANT:** |
 |:---------------------------------------------------------|
-| Due dockerHub recent changes and to test the CI/CD tools, we have temporarily moved to gitLab, so the latest version of this repository is now available here: https://gitlab.com/pkp-org/docker |
+| Due dockerHub recent changes and to test the CI/CD tools, we have temporarily moved to gitLab, so if you want to review how we create the docker images, take a lookto this repository: https://gitlab.com/pkp-org/docker |
 | This is a temporary change as most likely in the near future, we will move back to this same repository and use gitHubActions. |
 | Generated in gitLab or gitHub, we will keep pushing images to dockerHub as long as it is a free service. |
 | Sorry for the inconvenience. |
@@ -16,21 +18,6 @@ The images in this repository are built on top of [Alpine Linux](https://alpinel
 
 This repository is a fork of the work formerly done by [Lucas Dietrich](https://github.com/lucasdiedrich/ojs).
 
-
-<!-- ## Demo
-
-The fastest way to test docker-ojs is running the stack over "Play with docker".
-
-Just click the following link and create a user:
-
-[![Try in PWD](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/pkp/docker-ojs/master/versions/3_2_0-2/alpine/apache/php73/docker-compose.yml)
-
-Then wait till the containers are built and click in the 8081 port link to get a fresh clean demo with the last stable ojs version.
-
-| **TIP: Old versions on PWD **                                             |
-|:--------------------------------------------------------------------------|
-| Change the version number in [this url](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/pkp/docker-ojs/master/versions/3_2_0-2/alpine/apache/php73/docker-compose.yml) if you want to test an older version. |
--->
 
 ## How to use
 
@@ -64,7 +51,10 @@ you will be able to start a full OJS stack (web app + database containers) in 4 
 
     ```bash
     $ git clone https://github.com/pkp/docker-ojs.git
+    $ mv docker-ojs journalName && cd journalName
     ```
+
+   Replace "journalName" with a short name of your journal (probably you will like to set the same value you use for COMPOSE_PROJECT_NAME variable).
 
 2. Set your environment variables
 
@@ -72,17 +62,17 @@ you will be able to start a full OJS stack (web app + database containers) in 4 
     $ mv .env.TEMPLATE .env
     ```
 
-    Edit your .env file to fit your needto fit your needs.
+    Edit your .env file to fit your need to fit your needs.
     You will probably like to chage your OJS_VERSION, ports, and names.
-    For a detailes description of all the environment variables take a look to ["Environment Variables"](#) sectionj.
+    For a detailed description of all the environment variables take a look to ["Environment Variables"](#environment-variables) sectionj.
 
-3. Download the ojs config file related to your version
+3. Download the ojs config file related to your desired version
 
     ```bash
     $ source .env && wget "https://github.com/pkp/ojs/raw/${OJS_VERSION}/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
     ```
 
-    If your are running docker on windows with Powershell, spicify the version you like to download:
+    If your are running docker on windows (with Powershell), specify the version you like to download:
 
    ```bash
     $ wget "https://github.com/pkp/ojs/raw/3_3_0-14/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
@@ -94,6 +84,12 @@ you will be able to start a full OJS stack (web app + database containers) in 4 
     ```
 
     Docker-compose will pull images from dockerHub and do all the hard work for you to rise a full functional OJS stack.
+    If all goes as expected you will see your app_container informing apache is RUNNING successfully.
+
+    ```
+    INFO success: apache entered RUNNING state, process has stayed up for > than 1 seconds (startsecs) 
+    ```
+
     You can add the "-d" parameter to the call if you like to run it detached.
 
 4. Access **http://127.0.0.1:8081** and continue through web installation process.
@@ -118,6 +114,7 @@ That's all. Easy peasy, isn't it?
 
 Ok, let's talk talk about more complex concepts and scenarios.
 
+<!-- 
 ## Building local images
 
 The official image will work for 90% of the people but, if you don't want external dependencies or you like to modify our official Dockerfiles to fit your specific needs you will need to build your images in your machine.
@@ -139,10 +136,11 @@ To do this...
     ```bash
     $ docker-compose --file docker-compose-local.yml up
     ```
+-->
 
 ## Versions
 
-Different OJS versions are combined with different versions of PHP (5 and 7), and different web servers ([Apache HTTP Server](https://httpd.apache.org/), [nginx](https://nginx.org/)).
+Different OJS versions are combined with different versions of PHP (5 to 8...). In future we are planning to add variants with different web servers ([Apache HTTP Server](https://httpd.apache.org/), [nginx](https://nginx.org/)) and tools.
 
 _Currently, not all these combinations work! We are mostly focused in Apache2. PR are welcome_
 
@@ -155,14 +153,20 @@ All version tags can be found at [Docker Hub Tags tab](https://hub.docker.com/r/
 
 The image understand the following environment variables:
 
-| NAME            | Default   | Info                 |
-|:---------------:|:---------:|:---------------------|
-| SERVERNAME      | localhost | Used to generate httpd.conf and certificate            |
+| NAME                   | Default   | Info                 |
+|:----------------------:|:---------:|:---------------------|
+| SERVERNAME             | localhost | Used to generate httpd.conf and certificate            |
+| OJS_IMAGE              | ojs       | PKP tool to be used (ojs, omp, ops). Only OJS images avaliable right now |
+| OJS_VERSION            | 3_3_0-14  | OJS version to be deployed |
+| COMPOSER_PROJECT_NAME  | journal   | 
 | OJS_CLI_INSTALL | 0         | Used to install ojs automatically when start container |
 | OJS_DB_HOST     | db        | Database host        |
 | OJS_DB_USER     | ojs       | Database             |
 | OJS_DB_PASSWORD | ojsPwd    | Database password    |
 | OJS_DB_NAME     | ojs       | Database name        |
+| HTTP_PORT       | 8081      | Http port            |
+| HTTPS_PORT      | 8481      | Https port           |
+
 
 _**Note:** OJS_CLI_INSTALL and certificate features are under construction._
 
