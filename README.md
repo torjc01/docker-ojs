@@ -38,8 +38,9 @@ Then wait till the containers are built and click in the 8081 port link to get a
 
 ```
 $ git clone https://github.com/pkp/docker-ojs.git
+$ mv docker-ojs journalName && cd journalName
 $ mv .env.TEMPLATE .env
-$ vim .env
+$ vim .env 
 # Change the environment variables to fit your needs (ojs version, ports, container name, url...)
 $ source .env && wget "https://github.com/pkp/ojs/raw/${OJS_VERSION}/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
 $ docker-compose up -d
