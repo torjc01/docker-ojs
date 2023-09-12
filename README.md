@@ -36,6 +36,8 @@ Then wait till the containers are built and click in the 8081 port link to get a
 
 ### TL;DR;
 
+Be sure you have docker and docker-compose up and running.
+
 ```
 $ git clone https://github.com/pkp/docker-ojs.git
 $ mv docker-ojs journalName && cd journalName
@@ -80,11 +82,11 @@ you will be able to start a full OJS stack (web app + database containers) in 4 
     $ source .env && wget "https://github.com/pkp/ojs/raw/${OJS_VERSION}/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
     ```
 
+    If your are running docker on windows with Powershell, spicify the version you like to download:
+
+   ```bash
+    $ wget "https://github.com/pkp/ojs/raw/3_3_0-14/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
     ```
-    | **TIP: Map your config** |
-    |:-----------------------------------------------------------------------------------|
-    | In production sites you would like to change the default configuration. <br /> The recommended way is uncommenting the environment variable sections in your docker-compose.yml and set the [environment variables](#environment-variables) properly. |
-    | More info at ["Easy way to change config stuff"](#easy-way-to-change-config-stuff) |
 
 4. Run the stack:
     ```bash
