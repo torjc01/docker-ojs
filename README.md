@@ -6,8 +6,7 @@
 |:---------------------------------------------------------|
 | Due dockerHub recent changes and to test the CI/CD tools, we have temporarily moved to gitLab, so if you want to review how we create the docker images, take a lookto this repository: https://gitlab.com/pkp-org/docker |
 | This is a temporary change as most likely in the near future, we will move back to this same repository and use gitHubActions. |
-| Generated in gitLab or gitHub, we will keep pushing images to dockerHub as long as it is a free service. |
-| Sorry for the inconvenience. |
+| Generated in gitLab or gitHub, we will keep pushing images to dockerHub as long as it is a free service. Sorry for the inconvenience. |
 
 
 **This repository is still beta, so it should be used with care in production settings - please provide feedback early and often about your experience.** <br />We are actively working to release a stable version soon. Keep tuned.
