@@ -1,21 +1,18 @@
 # OJS (Open Journal Systems) - PKP - Container/Docker
 
 
-
 | **IMPORTANT:** |
 |:---------------------------------------------------------|
-| Due dockerHub recent changes and to test the CI/CD tools, we have temporarily moved to gitLab, so if you want to review how we create the docker images, take a lookto this repository: https://gitlab.com/pkp-org/docker |
-| This is a temporary change as most likely in the near future, we will move back to this same repository and use gitHubActions. |
-| Generated in gitLab or gitHub, we will keep pushing images to dockerHub as long as it is a free service. Sorry for the inconvenience. |
-
-
-**This repository is still beta, so it should be used with care in production settings - please provide feedback early and often about your experience.** <br />We are actively working to release a stable version soon. Keep tuned.
+| Due dockerHub recent changes and to test the CI/CD tools, we have temporarily moved to gitLab, so if you want to review how we create the docker images, take a lookto this repository: https://gitlab.com/pkp-org/docker. <br/>This is a temporary change as most likely in the near future, we will move back to this same repository and use gitHubActions. |
+| Generated in gitLab or gitHub, as long as it is a free service, we will keep pushing images to dockerHub. <br/>Sorry for the inconvenience. |
+| **This repository is still beta, so it should be used with care in production settings - please provide feedback early and often about your experience.** <br/>We are actively working to release a stable version soon. Keep tuned. |
 
 Open Journal Systems (OJS) is a journal management and publishing system that has been developed by the [Public Knowledge Project](https://pkp.sfu.ca/) through its federally funded efforts to expand and improve access to research.
 
 The images in this repository are built on top of [Alpine Linux](https://alpinelinux.org/) and come in several variants (see [Versions](#versions)).
 
-This repository is a fork of the work formerly done by [Lucas Dietrich](https://github.com/lucasdiedrich/ojs).
+This project is maintained by [Marc Bria](https://github.com/marcbria).
+This repository is a fork of the work formerly done by [Lucas Dietrich](https://github.com/lucasdiedrich/ojs) and [Marc Bria](https://github.com/marcbria/docker-ojs)
 
 
 ## How to use
@@ -413,6 +410,25 @@ you know docker and nginx so... ¿how could you contribute?
 
 6. Commit a PR with your new build.sh and templates (ignore the versions folder).
 
+## Troubleshooting 
+
+#### **I have trouble with Mac**
+In general with docker, there are some known issues with the new Mac’s ARM architecture : https://stackoverflow.com/questions/73294020/docker-couldnt-create-the-mpm-accept-mutex . Alternative solution (other than hardcoding mutex settings) might be to build docker image also for arm64 platform (https://github.com/bitnami/containers/issues/4679). Some work was started in this line in gitLab building pipelines with promising preliminary results.
+#### **I have trouble with Windows**
+Instructions to run are for linux (as fas as linux is the natural platform for docker and servers) but is also possible to run it in windows. The wget instructions use variables defined in the env-file but this is not compatible with windows powershell, so would be nice to find an alternative that works all platforms. As a temporary solution we add clear instructions for windows users, that need to modify the inliner to get the right version of the config.TEMPLATE file.
+#### **May I get an image based on nginx?**
+A nice addition for docker images would be offer nginx image to replace the existing apache2.
+#### **How could I deal with plugins?**
+One thing you always will need to deal with is plugins. This is now possible but could be improved with a few ideas that appear during the sprint as: 
+- Use volumes managed with git
+- Create new ojs-plugins script helper that backups and download the essential release plugins for your version. 
+#### **Is there any roadmap?**
+The project is build based on the needs of the participants. If you like to join, contact marc.bria@uab.cat.
+There is no formal roadmap, but we like to implement all the suggestion we made in the [Containers for PKP](https://docs.google.com/document/d/1AoGn1K4ep4vf7ylIS7wU2ybCLHdJNpkDRND7OhfRG-I/edit#heading=h.tpkz1jmp2yzm) document.
+Priorities right now are (by order):
+1. Fixing Mac image issues.
+2. Automatize docker images building and pushing to different repositories.
+3. Create new images based on "[Containers for PKP](https://docs.google.com/document/d/1AoGn1K4ep4vf7ylIS7wU2ybCLHdJNpkDRND7OhfRG-I/edit#heading=h.tpkz1jmp2yzm)" proposal.
 
 ## License
 
