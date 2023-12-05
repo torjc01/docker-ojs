@@ -1,4 +1,4 @@
-# OJS (Open Journal Systems) - PKP - Container/Docker
+# easyOJS - OJS in a docker
 
 
 | **IMPORTANT:** |
