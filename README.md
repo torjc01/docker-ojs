@@ -4,8 +4,7 @@
 | **IMPORTANT:** |
 |:---------------------------------------------------------|
 | In the Hannover sprint, we decided to mutate this repository into an **easy howto for running OJS** with the official dockerHub containers.<br /> This is now the recommended way to run dockerized OJS in test and production.  |
-| To be safe in case dockerHub changes it's usage terms and to test alternative CI/CD tools, we also created a [temporary gitLab repository](https://gitlab.com/pkp-org/docker), that is the one we use to build the images you can find in dockerHub. |
-| This is a temporary change as most likely in the near future, we will move back to this same repository and use gitHubActions. Sorry for the inconvenience. |
+| To be safe in case dockerHub changes it's usage terms and to test alternative CI/CD tools, we also created a [temporary gitLab repository](https://gitlab.com/pkp-org/docker), that is the one we use to build the images you can find in dockerHub. This is a temporary change as most likely in the near future, we will move back to this same repository and use gitHubActions. Sorry for the inconvenience. |
 | Anyway, generated in gitLab or gitHub, as long as it is a free service, we will keep pushing images to dockerHub. |
 
 Open Journal Systems (OJS) is a journal management and publishing system that has been developed by the [Public Knowledge Project](https://pkp.sfu.ca/) through its federally funded efforts to expand and improve access to research.
