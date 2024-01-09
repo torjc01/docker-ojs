@@ -19,16 +19,16 @@ This repository is a fork of the work formerly done by [Lucas Dietrich](https://
 
 ### TL;DR;
 
-Be sure you have docker and docker-compose up and running.
+Be sure you properly installed `docker` and `docker-compose` and the `docker` service is running.
 
 ```
-$ git clone https://github.com/pkp/docker-ojs.git
-$ mv docker-ojs journalName && cd journalName
-$ mv .env.TEMPLATE .env
-$ vim .env 
+git clone https://github.com/pkp/docker-ojs.git
+mv docker-ojs journalName && cd journalName
+mv .env.TEMPLATE .env
 # Change the environment variables to fit your needs (ojs version, ports, container name, url...)
-$ source .env && wget "https://github.com/pkp/ojs/raw/${OJS_VERSION}/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
-$ docker-compose up -d
+vim .env 
+source .env && wget "https://github.com/pkp/ojs/raw/${OJS_VERSION}/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
+docker compose up -d
 
 ```
 
@@ -76,7 +76,7 @@ you will be able to start a full OJS stack (web app + database containers) in 4 
 
 4. Run the stack:
     ```bash
-    $ docker-compose up
+    $ docker compose up
     ```
 
     Docker-compose will pull images from dockerHub and do all the hard work for you to rise a full functional OJS stack.
@@ -100,7 +100,7 @@ you will be able to start a full OJS stack (web app + database containers) in 4 
     - _Uncheck_ "Create new database"
     - _Uncheck_ "Beacon"
 
-    And the  "Directory for uploads:" acording to your docker-compose "/var/www/files"
+    And the  "Directory for uploads:" acording to your docker-compose.yml "/var/www/files"
 
     | **TIP:**             |
     |:---------------------|
@@ -130,7 +130,7 @@ To do this...
 
 2. Once the image is built, you can run the stack locally telling compose to use the local yaml file with the `-f`/`--file` option as follows:
     ```bash
-    $ docker-compose --file docker-compose-local.yml up
+    $ docker compose --file docker-compose-local.yml up
     ```
 -->
 
@@ -177,7 +177,7 @@ By default we include an structure of directories in the version folders
 To enable them, **you only need to uncomment the volume lines in
 your docker-compose.yml** and fill the folders properly.
 
-When you run the docker-compose it will mount the volumes with persistent
+When you run the `docker-compose` it will mount the volumes with persistent
 data and will let you share files from your host with the container.
 
 
@@ -215,7 +215,7 @@ Dockerfile that will be build to pull the plugin for his/her own repository...
 but this will be significantly slower than the volume method.
 
 Last but not least, those storage folders need to exist with the right permissions
-before you run your docker-compose or it will fail.
+before you run your `docker compose` command or it will fail.
 
 To be sure your volumes have the right permissions, you can run those commands:
 
@@ -257,7 +257,7 @@ Thanks to docker, the ugrade process is easy and straightforward.
 
 1. **Stop the stack** with the old OJS version (for instance "pkpofficial/ojs:2_4_8-5").
    ```bash
-   $ docker-compose stop
+   docker compose stop
    ```
 2. **Set the new version** in docker-compose.yml.
 
@@ -267,7 +267,7 @@ Thanks to docker, the ugrade process is easy and straightforward.
 
 3. **Start the container**. As you changed the version, docker-compose will automatically pull a new image with an updated version of the OJS code that will replace the old one (remember that containers are not persistent).
    ```bash
-   $ docker-compose up
+   $ docker compose up
    ```
 4. **Run the upgrade script** to upgrade the OJS database and files. Easiest was is connecting to your OJS container with [`docker exec`](https://docs.docker.com/engine/reference/commandline/exec/) and run the `ojs-upgrade` built in script with this single line:
    ```bash
@@ -314,11 +314,11 @@ to take effect.
 ### Easy way to change config stuff
 
 If you don't want to keep you own local images, you can use the ones we
-build in dockerHub and map your config files in your docker-compose.yml.
+build in dockerHub and map your config files in your `docker-compose.yml`.
 
 So if you like to change something in (for instance) your php settings,
 you only need to created create a `./volumes/config/php.custom.ini`
-outside your container and uncomment the volume in your docker-compose.yml.
+outside your container and uncomment the volume in your `docker-compose.yml`.
 
 Check the volumes section for a list of folders and files we think could
 be useful to overwrite or extend to fit your needs.
@@ -386,7 +386,7 @@ you know docker and nginx so... ¿how could you contribute?
    Basically you will need:
 
    - A Dockerfile template for each php version you publish (ie: dockerfile-alpine-nginx-php73.template)
-   - A generic docker-compose.yml template (templates/dockerComposes/docker-compose-nginx.template)
+   - A generic `docker-compose.yml` template (templates/dockerComposes/docker-compose-nginx.template)
    - A folder with all the specific configurations (templates/webServers/nginx/php73/root)
    - Extend exclude.list with the stuff you want to be removed.
 
@@ -406,7 +406,7 @@ you know docker and nginx so... ¿how could you contribute?
    $ ./build.sh
    ```
 
-5. Test your work running docker-compose with local dockerfiles.
+5. Test your work running `docker compose` with local dockerfiles.
 
 6. Commit a PR with your new build.sh and templates (ignore the versions folder).
 
