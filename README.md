@@ -1,6 +1,53 @@
 # easyOJS - OJS in a docker
 
 
+
+```bash
+git clone https://github.com/torjc01/docker-ojs.git
+mv docker-ojs journalAlbion && cd journalAlbion
+# Abre o VisualCode
+code .    
+# Modifica os valores das variaveis no .env
+mv .env.TEMPLATE .env
+# Mudando COMPOSE_PROJECT_NAME=journal-albion, PROJECT_DOMAIN=localhost, SERVERNAME=localhost, OJS_DB_PASSWORD=ojsPwd, HTTP_PORT e HTTPS_PORT para o que estiver disponivel 
+
+# Obtem o arquivo de configuracao ojs
+source .env && sudo wget "https://github.com/pkp/ojs/raw/${OJS_VERSION}/config.TEMPLATE.inc.php" -O ./volumes/config/ojs.config.inc.php
+# Modificar o arquivo ojs.config para colocar as variaveis : debug = On e display_errors = On
+sudo nano ./volumes/config/ojs.config.inc.php 
+
+# Modifica as permissoes pra que sejam equivalentes aos usuarios do container  
+
+sudo mkdir ./volumes/logs/db -p
+sudo chown 100:101 ./volumes -R
+sudo chown 999:999 ./volumes/db -R
+sudo chown 999:999 ./volumes/logs/db -R
+
+# Inicializa o container 
+docker compose up 
+
+# Modifica arquivos seguintes, dentro do container, para serem writable 
+# docker exec -it ojs_app_${COMPOSE_PROJECT_NAME:-demo} /bin/sh
+docker exec -it ojs_app_journal-albion /bin/sh
+
+# executa as seguintes instrucoes: 
+chmod a+w /var/www/html/config.inc.php 
+chmod -R a+w /var/www/html/public/
+chmod -R a+w /var/www/html/cache/
+chmod -R a+rwx /var/www/files
+
+
+```  
+Navegar para a pagina de inicio localhost:8088, e observar: 
+
+- Database driver = MySQLi 
+- host = db
+- password = conforme o arquivo .evn
+
+Desmarcar os checkbox create new database e Beacon
+
+
+
 | **IMPORTANT:** |
 |:---------------------------------------------------------|
 | In the Hannover sprint, we decided to mutate this repository into an **easy howto for running OJS** with the official dockerHub containers.<br /> This is now the recommended way to run dockerized OJS in test and production.  |
