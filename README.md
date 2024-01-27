@@ -44,7 +44,7 @@ Navegar para a pagina de inicio localhost:8088, e observar:
 - host = db
 - password = conforme o arquivo .evn
 
-Desmarcar os checkbox create new database e Beacon
+Desmarcar os checkboxes `Create new database`` e Beacon
 
 
 
