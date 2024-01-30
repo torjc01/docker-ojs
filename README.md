@@ -46,6 +46,8 @@ Navegar para a pagina de inicio localhost:8088, e observar:
 
 Desmarcar os checkboxes `Create new database`` e Beacon
 
+Obs: a inclusao de locale Français esta quebrando a instalaçao. Nao incluir o locale até novidades.
+
 
 
 | **IMPORTANT:** |
